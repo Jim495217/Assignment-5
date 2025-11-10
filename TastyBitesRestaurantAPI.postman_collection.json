@@ -1,0 +1,180 @@
+{
+  "info": {
+    "name": "Tasty Bites Restaurant API",
+    "description": "This API allows users to manage menu items for the Tasty Bites restaurant, including creating, reading, updating, and deleting menu items.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET - All Menu Items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/menu",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "menu"]
+        },
+        "description": "Retrieve a list of all menu items available in the restaurant’s database."
+      },
+      "response": [
+        {
+          "name": "200 OK — All menu items",
+          "originalRequest": {
+            "method": "GET",
+            "url": "http://localhost:3000/api/menu"
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Margherita Pizza\",\n    \"description\": \"Classic pizza with tomato sauce, mozzarella, and basil\",\n    \"price\": 12.99,\n    \"category\": \"entree\",\n    \"ingredients\": [\"Tomato sauce\", \"Mozzarella\", \"Basil\"],\n    \"available\": true\n  }\n]"
+        },
+        {
+          "name": "500 Internal Server Error",
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"success\": false,\n  \"message\": \"Server error while retrieving menu items\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "GET - Menu Item by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/menu/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "menu", "1"]
+        },
+        "description": "Retrieve a specific menu item by its ID."
+      },
+      "response": [
+        {
+          "name": "200 OK — Single menu item",
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"id\": 1,\n  \"name\": \"Margherita Pizza\",\n  \"description\": \"Classic pizza with tomato sauce, mozzarella, and basil\",\n  \"price\": 12.99,\n  \"category\": \"entree\",\n  \"ingredients\": [\"Tomato sauce\", \"Mozzarella\", \"Basil\"],\n  \"available\": true\n}"
+        },
+        {
+          "name": "404 Not Found — Item not found",
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"success\": false,\n  \"message\": \"Menu item not found\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "POST - Add New Menu Item",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Caesar Salad\",\n  \"description\": \"Fresh romaine lettuce, croutons, parmesan, and Caesar dressing\",\n  \"price\": 9.99,\n  \"category\": \"appetizer\",\n  \"ingredients\": [\"Romaine lettuce\", \"Croutons\", \"Parmesan\", \"Caesar dressing\"],\n  \"available\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/menu",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "menu"]
+        },
+        "description": "Add a new menu item to the restaurant database. All fields must meet validation rules."
+      },
+      "response": [
+        {
+          "name": "201 Created — New menu item",
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"id\": 3,\n  \"name\": \"Caesar Salad\",\n  \"description\": \"Fresh romaine lettuce, croutons, parmesan, and Caesar dressing\",\n  \"price\": 9.99,\n  \"category\": \"appetizer\",\n  \"ingredients\": [\"Romaine lettuce\", \"Croutons\", \"Parmesan\", \"Caesar dressing\"],\n  \"available\": true\n}"
+        },
+        {
+          "name": "400 Bad Request — Validation Error",
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"success\": false,\n  \"message\": \"Price must be a number greater than 0\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "PUT - Update Menu Item",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Caesar Salad Deluxe\",\n  \"description\": \"Fresh lettuce, croutons, parmesan, grilled chicken, and Caesar dressing\",\n  \"price\": 11.99,\n  \"category\": \"appetizer\",\n  \"ingredients\": [\"Romaine lettuce\", \"Croutons\", \"Parmesan\", \"Grilled chicken\", \"Caesar dressing\"],\n  \"available\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/menu/3",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "menu", "3"]
+        },
+        "description": "Update an existing menu item by its ID. All fields will be revalidated during the update."
+      },
+      "response": [
+        {
+          "name": "200 OK — Updated menu item",
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"id\": 3,\n  \"name\": \"Caesar Salad Deluxe\",\n  \"description\": \"Fresh lettuce, croutons, parmesan, grilled chicken, and Caesar dressing\",\n  \"price\": 11.99,\n  \"category\": \"appetizer\",\n  \"ingredients\": [\"Romaine lettuce\", \"Croutons\", \"Parmesan\", \"Grilled chicken\", \"Caesar dressing\"],\n  \"available\": true\n}"
+        },
+        {
+          "name": "400 Bad Request — Invalid Category",
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"success\": false,\n  \"message\": \"Invalid category. Must be one of: appetizer, entree, dessert, beverage\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "DELETE - Remove Menu Item",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/menu/3",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "menu", "3"]
+        },
+        "description": "Remove a specific menu item from the restaurant’s database by ID."
+      },
+      "response": [
+        {
+          "name": "200 OK — Deleted menu item",
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Menu item deleted successfully\"\n}"
+        },
+        {
+          "name": "404 Not Found — Item not found",
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"success\": false,\n  \"message\": \"Menu item not found\"\n}"
+        }
+      ]
+    }
+  ]
+}
